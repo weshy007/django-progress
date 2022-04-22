@@ -1,0 +1,10 @@
+asgiref==3.5.0
+beautifulsoup4==4.11.1
+bootstrap4==0.1.0
+Django==4.0.4
+django-bootstrap4==22.1
+Pillow==9.1.0
+psycopg2-binary==2.9.3
+python-decouple==3.6
+soupsieve==2.3.2.post1
+sqlparse==0.4.2
