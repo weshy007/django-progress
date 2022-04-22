@@ -1,4 +1,5 @@
 import datetime as dt
+from hashlib import new
 
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -7,6 +8,9 @@ from news.email import send_welcome_email
 
 from .forms import NewsLetterForm
 from .models import Article, NewsLetterRecipients
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 # Create your views here.
@@ -28,7 +32,7 @@ def news_today(request):
     else:
         form = NewsLetterForm()
 
-    return render(request, 'all-news/today-news.html', {"date": date, "news":news, "letterForm":form})
+    return render(request, 'all-news/today-news.html', {"date": date, "news":news, "form":form})
 
 
 def past_days_news(request,past_date):
@@ -60,6 +64,7 @@ def search_results(request):
         message = "You haven't searched for any item"
         return render(request, 'all-news/search.html', {"message":message}) 
 
+@login_required(login_url='/accounts/login/')
 def article(request, article_id):
     try:
         article = Article.objects.get(id= article_id)
@@ -67,6 +72,11 @@ def article(request, article_id):
         raise Http404
 
     return render(request, "all-news/article.html", {"article": article})
+
+
+def log_out(request):
+    logout(request)
+    return redirect(news_today)
 
 
 

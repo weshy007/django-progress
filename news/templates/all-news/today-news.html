@@ -37,7 +37,7 @@
     <form  action="{%url 'newsToday'%}" method="post">
       {%csrf_token%}
 
-      {% bootstrap_form letterForm layout='inline' %}
+      {% bootstrap_form form layout='inline' %}
       <input type="submit" value="Subscribe">
 
     </form>

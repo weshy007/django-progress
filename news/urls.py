@@ -8,7 +8,11 @@ urlpatterns = [
     path('', views.news_today, name='newsToday'),
     path('archives/(\d{4}-\d{2}-\d{2})/',views.past_days_news,name = 'pastNews'),
     path('search/', views.search_results, name='search_results'),
-    path('article/(\d+)',views.article,name ='article')
+    path('article/(\d+)',views.article,name ='article'),
+    
+    path('logout/', views.log_out, name='logout'), 
+
+
 
 
 ]
