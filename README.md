@@ -8,7 +8,7 @@
 - Django send email
   - Send welcome email after newsletter subscription
 
-## Project
+## Project Installation
     ** Clone Project**
     $ git clone git clone https://github.com/weshy007/django-progress
     $ cd django-progress

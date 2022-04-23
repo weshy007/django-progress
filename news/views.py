@@ -2,7 +2,7 @@ import datetime as dt
 
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 
 from news.email import send_welcome_email
@@ -15,22 +15,25 @@ from .models import Article, NewsLetterRecipients
 def news_today(request):
     date = dt.date.today()
     news = Article.today_news()
-
-    if request.method == 'POST':
-        form = NewsLetterForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['your_name']
-            email = form.cleaned_data['email']
-
-            recipient = NewsLetterRecipients(name=name, email= email)
-            recipient.save()
-            send_welcome_email(name,email)
-
-            HttpResponseRedirect('news_today')
-    else:
-        form = NewsLetterForm()
+    form = NewsLetterForm()
 
     return render(request, 'all-news/today-news.html', {"date": date, "news":news, "form":form})
+
+'''
+We pass the serialize function which converts the form values into a JSON that will be passed into the request. 
+If the AJAX request is successful, it will alert the user that it is successful. We then clear the form fields. 
+Now when you submit that form you will see that the page will not reload but a welcome email will be sent.
+'''
+
+def newsletter(request):
+    name = request.POST.get('your_name')
+    email = request.POST.get('email')
+
+    recipient =  NewsLetterRecipients(name=name, email=email)
+    recipient.save()
+    send_welcome_email(name, email)
+    data = {'success': 'You have been successfully added to mailing list'}
+    return JsonResponse(data)
 
 
 def past_days_news(request,past_date):

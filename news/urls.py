@@ -11,6 +11,9 @@ urlpatterns = [
     path('article/(\d+)',views.article,name ='article'),
     path('new/article', views.new_article, name='new-article'),
 
+    path('ajax/newsletter/', views.newsletter, name='newsletter'),
+
+
     
     path('logout/', views.log_out, name='logout'), 
 
