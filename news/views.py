@@ -1,16 +1,14 @@
 import datetime as dt
-from hashlib import new
 
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
 from news.email import send_welcome_email
 
-from .forms import NewsLetterForm
+from .forms import NewArticleForm, NewsLetterForm
 from .models import Article, NewsLetterRecipients
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
 
 
 # Create your views here.
@@ -72,6 +70,21 @@ def article(request, article_id):
         raise Http404
 
     return render(request, "all-news/article.html", {"article": article})
+
+@login_required(login_url='/accounts/login/')
+def new_article(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.editor = current_user
+            article.save()
+        return redirect('newsToday')
+
+    else:
+        form = NewsLetterForm()
+    return render(request, 'new_article.html', {"form": form})
 
 
 def log_out(request):

@@ -1,6 +1,7 @@
 ## Django _Practice Process
 - News Application in Django
 
+## Features
 - Django Registration
     - This package provides two ways to register users. Register Using **Confirmation Email** and **One step Register**
     - One this project I'm using the one step which is with email, username & password
