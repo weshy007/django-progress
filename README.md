@@ -7,6 +7,7 @@
     - One this project I'm using the one step which is with email, username & password
 - Django send email
   - Send welcome email after newsletter subscription
+- RESTful API - A very basic structure that can handle GET requests then move on to adding authentication and handling POST request.
 
 ## Project Installation
     ** Clone Project**

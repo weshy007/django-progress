@@ -1,3 +1,4 @@
+from statistics import mode
 from django.db import models
 import datetime as dt
 from django.contrib.auth.models import User
@@ -57,6 +58,11 @@ class Article(models.Model):
 class NewsLetterRecipients(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField()
+
+class WeshyMerch(models.Model):
+    name = models.CharField(max_length=40)
+    description = models.TextField()
+    price = models.DecimalField(decimal_places=2, max_digits=20)
 
 
 

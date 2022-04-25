@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'news',
     'bootstrap4',
     'tinymce',
+    'rest_framework',
 
 
 ]

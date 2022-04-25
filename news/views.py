@@ -4,11 +4,14 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from news.email import send_welcome_email
 
 from .forms import NewArticleForm, NewsLetterForm
-from .models import Article, NewsLetterRecipients
+from .models import Article, NewsLetterRecipients, WeshyMerch
+from .serializer import MerchSerializer
 
 
 # Create your views here.
@@ -94,6 +97,10 @@ def log_out(request):
     logout(request)
     return redirect(news_today)
 
-
+class MerchList(APIView):
+    def get(self, request, formart=None):
+        all_merch = WeshyMerch.objects.all()
+        serializers = MerchSerializer(all_merch, many=True)
+        return Response(serializers.data)
 
     

@@ -13,7 +13,7 @@ urlpatterns = [
 
     path('ajax/newsletter/', views.newsletter, name='newsletter'),
 
-
+    path('api/merch/', views.MerchList.as_view()),
     
     path('logout/', views.log_out, name='logout'), 
 
