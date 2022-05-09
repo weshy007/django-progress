@@ -1,7 +1,7 @@
-import imp
-from re import A
 from django.contrib import admin
-from .models import Editor, Article, tags, WeshyMerch
+
+from .models import Article, Editor, WeshyMerch, tags
+
 
 # Register your models here.
 class ArticleAdmin(admin.ModelAdmin):

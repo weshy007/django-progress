@@ -4,16 +4,14 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
-
 
 from .email import send_welcome_email
-from .permissions import IsAdminOrReadOnly
-
 from .forms import NewArticleForm, NewsLetterForm
 from .models import Article, NewsLetterRecipients, WeshyMerch
+from .permissions import IsAdminOrReadOnly
 from .serializer import MerchSerializer
 
 
