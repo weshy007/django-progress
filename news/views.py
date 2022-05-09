@@ -23,7 +23,7 @@ def news_today(request):
     news = Article.today_news()
     form = NewsLetterForm()
 
-    return render(request, 'all-news/today-news.html', {"date": date, "news":news, "form":form})
+    return render(request, 'all-news/today-news.html', {"date": date, "news_item":news, "form":form})
 
 '''
 We pass the serialize function which converts the form values into a JSON that will be passed into the request. 
