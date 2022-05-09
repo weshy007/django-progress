@@ -2,12 +2,15 @@ import datetime as dt
 
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseRedirect, JsonResponse
+from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import status
 
-from news.email import send_welcome_email
+
+from .email import send_welcome_email
+from .permissions import IsAdminOrReadOnly
 
 from .forms import NewArticleForm, NewsLetterForm
 from .models import Article, NewsLetterRecipients, WeshyMerch
@@ -103,4 +106,12 @@ class MerchList(APIView):
         serializers = MerchSerializer(all_merch, many=True)
         return Response(serializers.data)
 
-    
+    def post(self, request, format=None):
+        serializers = WeshyMerch(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    permission_classes = (IsAdminOrReadOnly)
+          

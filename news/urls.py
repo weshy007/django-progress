@@ -2,6 +2,7 @@ from django.conf import settings
 from django.urls import path
 from . import views
 from django.conf.urls.static import static
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 urlpatterns = [
@@ -14,6 +15,7 @@ urlpatterns = [
     path('ajax/newsletter/', views.newsletter, name='newsletter'),
 
     path('api/merch/', views.MerchList.as_view()),
+    path('api-token-auth/', obtain_auth_token),
     
     path('logout/', views.log_out, name='logout'), 
 
