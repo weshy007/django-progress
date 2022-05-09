@@ -5,4 +5,4 @@ from .models import WeshyMerch
 class MerchSerializer(serializers.ModelSerializer):
     class Meta:
         model = WeshyMerch
-        fields = ('name', 'description', 'price')
+        fields = ('id', 'name', 'description', 'price')

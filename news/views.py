@@ -114,4 +114,35 @@ class MerchList(APIView):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
     permission_classes = (IsAdminOrReadOnly)
-          
+
+class MerchDescription(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+
+    # Getting a single Item
+    def get_merch(self, pk):
+        try:
+            return WeshyMerch.objects.get(pk=pk)
+        except WeshyMerch.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        merch = self.get_merch(pk)
+        serializers = MerchSerializer(merch)
+        return Response(serializers.data)
+
+    # Update an object
+    def put(self, request, pk, format=None):
+        merch = self.get_merch(pk)
+        serializers = MerchSerializer(merch, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Deleting an Object
+    def delete(self, request, pk, format=None):
+        merch = self.get_merch(pk)
+        merch.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        

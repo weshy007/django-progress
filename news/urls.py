@@ -16,6 +16,7 @@ urlpatterns = [
 
     path('api/merch/', views.MerchList.as_view()),
     path('api-token-auth/', obtain_auth_token),
+    path('api/merch/merch-id/(?P<pk>[0-9]+)/', views.MerchDescription.as_view()),
     
     path('logout/', views.log_out, name='logout'), 
 
